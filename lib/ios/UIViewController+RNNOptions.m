@@ -86,6 +86,10 @@ const NSInteger BLUR_STATUS_TAG = 78264801;
 	self.tabBarItem.badgeColor = badgeColor;
 }
 
+- (void)rnn_setTabBarItemText:(NSString *)text {
+	self.tabBarItem.title = text;
+}
+
 - (void)rnn_setStatusBarStyle:(NSString *)style animated:(BOOL)animated {
 	if (animated) {
 		[UIView animateWithDuration:[self statusBarAnimationDuration:animated] animations:^{

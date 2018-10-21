@@ -22,9 +22,14 @@
 	[viewController rnn_setTopBarPrefersLargeTitle:[options.topBar.largeTitle.visible getWithDefaultValue:NO]];
 	[viewController rnn_setDrawBehindTabBar:[options.bottomTabs.drawBehind getWithDefaultValue:NO] || ![options.bottomTabs.visible getWithDefaultValue:YES]];
 	[viewController rnn_setTabBarItemBadgeColor:[options.bottomTab.badgeColor getWithDefaultValue:nil]];
+	// [viewController rnn_setTabBarItemText:[options.bottomTab.text getWithDefaultValue:nil]];
 	[viewController rnn_setStatusBarBlur:[options.statusBar.blur getWithDefaultValue:NO]];
 	[viewController rnn_setStatusBarStyle:[options.statusBar.style getWithDefaultValue:@"default"] animated:[options.statusBar.animate getWithDefaultValue:YES]];
 	[viewController rnn_setBackButtonVisible:[options.topBar.backButton.visible getWithDefaultValue:YES]];
+
+	if (options.bottomTab.text.hasValue) {
+		[viewController rnn_setTabBarItemText:options.bottomTab.text.get];
+	}
 
 	if (options.layout.backgroundColor.hasValue) {
 		[viewController rnn_setBackgroundColor:options.layout.backgroundColor.get];
@@ -92,6 +97,10 @@
 		[viewController rnn_setTabBarItemBadgeColor:options.bottomTab.badgeColor.get];
 	}
 	
+	if (options.bottomTab.text.hasValue) {
+		[viewController rnn_setTabBarItemText:options.bottomTab.text.get];
+	}
+
 	if (options.layout.backgroundColor.hasValue) {
 		[viewController rnn_setBackgroundColor:options.layout.backgroundColor.get];
 	}
