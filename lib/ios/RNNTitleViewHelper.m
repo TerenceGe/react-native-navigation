@@ -104,7 +104,9 @@
 	labelframe.size = labelSize;
 	subtitleLabel.frame = labelframe;
 	[subtitleLabel sizeToFit];
-	
+
+	[subtitleLabel setFont:[UIFont systemFontOfSize:11]];
+
 	if (_subtitleOptions.color.hasValue) {
 		UIColor *color = _subtitleOptions.color.get;
 		subtitleLabel.textColor = color;
@@ -141,6 +143,8 @@
 	
 	if (!self.subtitle) {
 		titleLabel.center = self.titleView.center;
+	} else {
+	  [titleLabel setFont:[UIFont boldSystemFontOfSize:17.f]];
 	}
 	
 	if (_titleOptions.color.hasValue) {

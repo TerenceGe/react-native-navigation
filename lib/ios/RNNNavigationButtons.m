@@ -3,21 +3,23 @@
 #import <React/RCTConvert.h>
 #import "RCTHelpers.h"
 #import "UIImage+tint.h"
+#import "RNNRootViewController.h"
 
 @interface RNNNavigationButtons()
 
-@property (weak, nonatomic) RNNRootViewController* viewController;
+@property (weak, nonatomic) UIViewController* viewController;
 @property (strong, nonatomic) RNNButtonOptions* defaultLeftButtonStyle;
 @property (strong, nonatomic) RNNButtonOptions* defaultRightButtonStyle;
-
+@property (nonatomic) id<RNNRootViewCreator> creator;
 @end
 
 @implementation RNNNavigationButtons
 
--(instancetype)initWithViewController:(RNNRootViewController*)viewController {
+-(instancetype)initWithViewController:(UIViewController*)viewController rootViewCreator:(id<RNNRootViewCreator>)creator {
 	self = [super init];
 	
 	self.viewController = viewController;
+	self.creator = creator;
 	
 	return self;
 }
@@ -63,7 +65,7 @@
 
 -(RNNUIBarButtonItem*)buildButton: (NSDictionary*)dictionary defaultStyle:(RNNButtonOptions *)defaultStyle {
 	NSString* buttonId = dictionary[@"id"];
-	NSString* title = [self getValue:dictionary[@"text"] withDefault:defaultStyle.text];
+	NSString* title = [self getValue:dictionary[@"text"] withDefault:[defaultStyle.text getWithDefaultValue:nil]];
 	NSDictionary* component = dictionary[@"component"];
 	
 	if (!buttonId) {
@@ -78,7 +80,7 @@
 	
 	RNNUIBarButtonItem *barButtonItem;
 	if (component) {
-		RCTRootView *view = (RCTRootView*)[self.viewController.creator createCustomReactView:component[@"name"] rootViewId:component[@"componentId"]];
+		RCTRootView *view = (RCTRootView*)[self.creator createCustomReactView:component[@"name"] rootViewId:component[@"componentId"]];
 		barButtonItem = [[RNNUIBarButtonItem alloc] init:buttonId withCustomView:view];
 	} else if (iconImage) {
 		barButtonItem = [[RNNUIBarButtonItem alloc] init:buttonId withIcon:iconImage];
@@ -117,11 +119,13 @@
 	
 	NSNumber* fontSize = [self fontSize:dictionary[@"fontSize"] defaultFontSize:[defaultStyle.fontSize getWithDefaultValue:nil]];
 	NSString* fontFamily = [self fontFamily:dictionary[@"fontFamily"] defaultFontFamily:[defaultStyle.fontFamily getWithDefaultValue:nil]];
+	CGFloat fontWeight = [self fontWeight:[dictionary[@"fontWeight"] floatValue] defaultFontWeight:UIFontWeightRegular];
+
 	UIFont *font = nil;
 	if (fontFamily) {
 		font = [UIFont fontWithName:fontFamily size:[fontSize floatValue]];
 	} else {
-		font = [UIFont systemFontOfSize:[fontSize floatValue]];
+		font = [UIFont systemFontOfSize:[fontSize floatValue] weight:fontWeight];
 	}
 	[textAttributes setObject:font forKey:NSFontAttributeName];
 	[disabledTextAttributes setObject:font forKey:NSFontAttributeName];
@@ -164,6 +168,14 @@
 		return fontFamily;
 	} else {
 		return defaultFontFamily;
+	}
+}
+
+- (CGFloat)fontWeight:(CGFloat)fontWeight defaultFontWeight:(CGFloat)defaultFontWeight {
+	if (fontWeight) {
+		return fontWeight;
+	} else {
+		return UIFontWeightRegular;
 	}
 }
 

@@ -38,7 +38,7 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 	if (noBorder) {
 		self.navigationBar
 		.shadowImage = [[UIImage alloc] init];
-		[self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+		// [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 	} else {
 		self.navigationBar
 		.shadowImage = nil;
@@ -65,6 +65,25 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 			self.navigationBar.prefersLargeTitles = NO;
 		}
 	}
+}
+
+- (void)rnn_setRightImage:(UIImage *)rightImage {
+//	UIImageView* rightImageView = (self.navigationController.navigationBar.subviews.count > 0) ? self.navigationController.navigationBar.subviews[0] : nil;
+//	if (![rightImageView isKindOfClass:[UIImageView class]]) {
+//		rightImageView = [[UIImageView alloc] initWithImage: rightImage];
+//		[self.navigationController.navigationBar addSubview:rightImageView];
+//	}
+//	rightImageView.layer.cornerRadius = 20.0;
+//	rightImageView.clipsToBounds = YES;
+//	rightImageView.translatesAutoresizingMaskIntoConstraints = NO;
+//
+//	[NSLayoutConstraint activateConstraints:@[
+//											  [rightImageView.rightAnchor constraintEqualToAnchor:self.navigationController.navigationBar.rightAnchor constant:-16.0],
+//											  [rightImageView.bottomAnchor constraintEqualToAnchor:self.navigationController.navigationBar.bottomAnchor constant:-12.0],
+//											  [rightImageView.heightAnchor constraintEqualToConstant:40.0],
+//											  [rightImageView.widthAnchor constraintEqualToAnchor:rightImageView.heightAnchor]
+//											  ]
+//	 ];
 }
 
 - (void)rnn_setNavigationBarLargeTitleFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize color:(UIColor *)color {

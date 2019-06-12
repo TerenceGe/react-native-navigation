@@ -33,6 +33,7 @@
 @property (nonatomic, strong) RNNBackButtonOptions* backButton;
 @property (nonatomic, strong) RNNButtonOptions* leftButtonStyle;
 @property (nonatomic, strong) RNNButtonOptions* rightButtonStyle;
+@property (nonatomic, strong) Image* rightImage;
 
 
 @property (nonatomic, strong) RNNComponentOptions* component;

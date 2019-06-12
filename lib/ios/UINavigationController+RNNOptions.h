@@ -5,6 +5,7 @@
 - (void)rnn_setInteractivePopGestureEnabled:(BOOL)enabled;
 
 - (void)rnn_setRootBackgroundImage:(UIImage *)backgroundImage;
+- (void)rnn_setRightImage:(UIImage *)rightImage;
 
 - (void)rnn_setNavigationBarTestID:(NSString *)testID;
 
